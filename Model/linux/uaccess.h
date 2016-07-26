@@ -1,6 +1,8 @@
 #ifndef __i386_UACCESS_H
 #define __i386_UACCESS_H
 
+#include <svcomp.h>
+
 /*
  * User space memory access functions
  */
@@ -21,12 +23,12 @@ int put_user(int size, void *ptr);
 
 unsigned long copy_to_user(void __user *to, const void *from, unsigned long n)
 {
-  return __SMACK_nondet();
+  return (unsigned long)__VERIFIER_nondet_ulong();
 }
 
 unsigned long copy_from_user(void *to, void __user *from, unsigned long n)
 {
-  return __SMACK_nondet();
+  return (unsigned long)__VERIFIER_nondet_ulong();
 }
 
 #endif /* __i386_UACCESS_H */

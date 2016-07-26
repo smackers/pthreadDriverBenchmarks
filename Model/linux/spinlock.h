@@ -1,7 +1,8 @@
 #ifndef __LINUX_SPINLOCK_H
 #define __LINUX_SPINLOCK_H
 
-#include <smack.h>
+#include <pthread.h>
+#include <svcomp.h>
 
 #ifndef SPIN_LOCK_UNINITIALIZED
 #define SPIN_LOCK_UNINITIALIZED 0
@@ -31,86 +32,86 @@ void spin_lock_init(spinlock_t *lock)
 
 void spin_lock(spinlock_t *lock)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ != @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
-  __SMACK_code("assume @ == @;", lock->lock, SPIN_LOCK_UNLOCKED);
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid != lock->lock);
+  __VERIFIER_atomic_begin();
+  __VERIFIER_assume(lock->lock == SPIN_LOCK_UNLOCKED);
   lock->lock = tid;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 void spin_lock_irqsave(spinlock_t *lock, unsigned long value)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ != @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
-  __SMACK_code("assume @ == @;", lock->lock, SPIN_LOCK_UNLOCKED);
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid != lock->lock);
+  __VERIFIER_atomic_begin();
+  __VERIFIER_assume(lock->lock == SPIN_LOCK_UNLOCKED);
   lock->lock = tid;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 void spin_lock_irq(spinlock_t *lock)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ != @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
-  __SMACK_code("assume @ == @;", lock->lock, SPIN_LOCK_UNLOCKED);
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid != lock->lock);
+  __VERIFIER_atomic_begin();
+  __VERIFIER_assume(lock->lock == SPIN_LOCK_UNLOCKED);
   lock->lock = tid;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 void spin_lock_bh(spinlock_t *lock)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ != @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
-  __SMACK_code("assume @ == @;", lock->lock, SPIN_LOCK_UNLOCKED);
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid != lock->lock);
+  __VERIFIER_atomic_begin();
+  __VERIFIER_assume(lock->lock == SPIN_LOCK_UNLOCKED);
   lock->lock = tid;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 void spin_unlock(spinlock_t *lock)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ == @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid == lock->lock);
+  __VERIFIER_atomic_begin();
   lock->lock = SPIN_LOCK_UNLOCKED;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 void spin_unlock_irqrestore(spinlock_t *lock, unsigned long value)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ == @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid == lock->lock);
+  __VERIFIER_atomic_begin();
   lock->lock = SPIN_LOCK_UNLOCKED;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 void spin_unlock_irq(spinlock_t *lock)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ == @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid == lock->lock);
+  __VERIFIER_atomic_begin();
   lock->lock = SPIN_LOCK_UNLOCKED;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 void spin_unlock_bh(spinlock_t *lock)
 {
-  int tid = __SMACK_nondet();
-  __SMACK_code("call @ := corral_getThreadID();", tid);
-  //__SMACK_code("assert @ == @;", tid, lock->lock);
-  __SMACK_code("call corral_atomic_begin();");
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid == lock->lock);
+  __VERIFIER_atomic_begin();
   lock->lock = SPIN_LOCK_UNLOCKED;
-  __SMACK_code("call corral_atomic_end();");
+  __VERIFIER_atomic_end();
 }
 
 #endif /* __LINUX_SPINLOCK_H */

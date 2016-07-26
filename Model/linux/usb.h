@@ -1,6 +1,7 @@
 #ifndef __LINUX_USB_H
 #define __LINUX_USB_H
 
+#include <svcomp.h>
 #include <linux/mod_devicetable.h>
 #include <linux/usb/ch9.h>
 
@@ -1143,7 +1144,7 @@ extern int usb_register_driver(struct usb_driver *, struct module *,
 /* use a define to avoid include chaining to get THIS_MODULE & friends */
 int usb_register(driver)
 {
-	return __SMACK_nondet();
+	return __VERIFIER_nondet_int();
 }
 
 extern void usb_deregister(struct usb_driver *);
@@ -1778,7 +1779,7 @@ void usb_sg_wait(struct usb_sg_request *io);
 static inline unsigned int __create_pipe(struct usb_device *dev,
 		unsigned int endpoint)
 {
-	return __SMACK_nondet();
+  return (unsigned int)__VERIFIER_nondet_uint();
 }
 
 /* Create various pipes... */

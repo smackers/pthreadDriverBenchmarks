@@ -12,6 +12,7 @@
 #ifndef _S390_IDALS_H
 #define _S390_IDALS_H
 
+#include <svcomp.h>
 #include <linux/errno.h>
 #include <linux/err.h>
 #include <linux/types.h>
@@ -32,7 +33,7 @@
 static inline int
 idal_is_needed(void *vaddr, unsigned int length)
 {
-	return __SMACK_nondet();
+	return __VERIFIER_nondet_int();
 }
 
 
@@ -41,7 +42,7 @@ idal_is_needed(void *vaddr, unsigned int length)
  */
 static inline unsigned int idal_nr_words(void *vaddr, unsigned int length)
 {
-	return __SMACK_nondet();
+  return (unsigned int)__VERIFIER_nondet_uint();
 }
 
 /*
@@ -50,7 +51,7 @@ static inline unsigned int idal_nr_words(void *vaddr, unsigned int length)
 static inline unsigned long *idal_create_words(unsigned long *idaws,
 					       void *vaddr, unsigned int length)
 {
-	return __SMACK_nondet();
+  return (unsigned long)__VERIFIER_nondet_ulong();
 }
 
 /*
@@ -106,7 +107,7 @@ idal_buffer_free(struct idal_buffer *ib)
 static inline int
 __idal_buffer_is_needed(struct idal_buffer *ib)
 {
-	return __SMACK_nondet();
+	return __VERIFIER_nondet_int();
 }
 
 /*

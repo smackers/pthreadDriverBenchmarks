@@ -1,8 +1,10 @@
 #ifndef __LINUX_MUTEX_H
 #define __LINUX_MUTEX_H
 
+
+#include <pthread.h>
 #include <linux/types.h>
-#include <smack.h>
+#include <svcomp.h>
 
 #ifndef MUTEX_UNINITIALIZED
 #define MUTEX_UNINITIALIZED 0
@@ -18,49 +20,52 @@
 
 struct mutex
 {
-	int init;
-	int locked;
+  int init;
+  int locked;
 };
 
 #define DEFINE_MUTEX(x) struct mutex x = { MUTEX_INITIALIZED, MUTEX_UNLOCKED }
 
 void mutex_init(struct mutex *lock)
 {
-	lock->locked = MUTEX_UNLOCKED;
-	lock->init = MUTEX_INITIALIZED;
+  lock->locked = MUTEX_UNLOCKED;
+  lock->init = MUTEX_INITIALIZED;
 }
 
 void mutex_lock(struct mutex *lock)
 {
-	int tid = __SMACK_nondet();
-	__SMACK_code("call @ := corral_getThreadID();", tid);
-	//__SMACK_code("assert @ != @;", tid, lock->locked);
-	__SMACK_code("call corral_atomic_begin();");
-	__SMACK_code("assume @ == @;", lock->locked, MUTEX_UNLOCKED);
-	lock->locked = tid;
-	__SMACK_code("call corral_atomic_end();");
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid != lock->locked);
+  __VERIFIER_atomic_begin();
+  __VERIFIER_assume(lock->locked == MUTEX_UNLOCKED);
+  lock->locked = tid;
+  __VERIFIER_atomic_end();
 }
 
 bool mutex_lock_interruptible(struct mutex *lock)
 {
-	int tid = __SMACK_nondet();
-	__SMACK_code("call @ := corral_getThreadID();", tid);
-	//__SMACK_code("assert @ != @;", tid, lock->locked);
-	__SMACK_code("call corral_atomic_begin();");
-	__SMACK_code("assume @ == @;", lock->locked, MUTEX_UNLOCKED);
-	lock->locked = tid;
-	__SMACK_code("call corral_atomic_end();");
-	return __SMACK_nondet();
+  bool ret = __VERIFIER_nondet_bool();
+  if(!ret) {
+    pthread_t tid = __VERIFIER_nondet_pthread_t();
+    tid = pthread_self();
+    //__VERIFIER_assert(tid != lock->locked);
+    __VERIFIER_atomic_begin();
+    __VERIFIER_assume(lock->locked == MUTEX_UNLOCKED);
+    lock->locked = tid;
+    __VERIFIER_atomic_end();
+  }
+  return ret;
 }
 
 void mutex_unlock(struct mutex *lock)
 {
-	int tid = __SMACK_nondet();
-	__SMACK_code("call @ := corral_getThreadID();", tid);
-	//__SMACK_code("assert @ == @;", tid, lock->locked);
-	__SMACK_code("call corral_atomic_begin();");
-	lock->locked = MUTEX_UNLOCKED;
-	__SMACK_code("call corral_atomic_end();");
+  pthread_t tid = __VERIFIER_nondet_pthread_t();
+  tid = pthread_self();
+  //__VERIFIER_assert(tid == lock->locked);
+  __VERIFIER_atomic_begin();
+  lock->locked = MUTEX_UNLOCKED;
+  __VERIFIER_atomic_end();
 }
 
 #endif
