@@ -9187,7 +9187,7 @@ loff_t nvram_llseek(struct file *file, loff_t offset, int origin)
   return -22;
 
  file->f_pos = offset;
-        __VERIFIER_assert(file->f_pos == offset);
+ __VERIFIER_assert(file->f_pos == offset);
 
  return file->f_pos;
 }
@@ -9206,7 +9206,7 @@ ssize_t read_nvram(struct file *file, char *buf,
   if (__put_user(nvram_read_byte(i), p))
    return -14;
  *ppos = i;
-        __VERIFIER_assert(*ppos == i);
+ __VERIFIER_assert(*ppos == i);
 
  return p - buf;
 }
@@ -9226,10 +9226,9 @@ ssize_t write_nvram(struct file *file, const char *buf,
   if (__get_user(c, p))
    return -14;
   nvram_write_byte(c, i);
-                __VERIFIER_assert(nvram_read_byte(i) == c);
  }
  *ppos = i;
-        __VERIFIER_assert(*ppos == i);
+ __VERIFIER_assert(*ppos == i);
 
  return p - buf;
 }
