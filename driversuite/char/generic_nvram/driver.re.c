@@ -255,9 +255,6 @@ void main()
 	whoop_int = __SMACK_nondet();
 	__SMACK_code("assume @ >= @;", whoop_int, 0);
 
-	// Call module_init function
-	_whoop_init();
-
 	// Declare pthread_t's
 	pthread_t pthread_t_write_nvram;
 	pthread_t pthread_t_read_nvram;
@@ -278,8 +275,5 @@ void main()
 	pthread_join(pthread_t_nvram_unlocked_ioctl, NULL);
 	pthread_join(pthread_t_nvram_llseek, NULL);
 	pthread_join(pthread_t_nvram_cleanup, NULL);
-
-	// Call module_cleanup function
-	_whoop_exit();
 
 }

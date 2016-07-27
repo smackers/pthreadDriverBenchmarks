@@ -1,5 +1,10 @@
 
 
+
+
+
+
+
 typedef int pthread_t;
 
 typedef int pthread_attr_t;
@@ -10,6 +15,11 @@ int pthread_create(pthread_t* thread,const pthread_attr_t* attr,
 int pthread_join(pthread_t thread, void **value_ptr);
 
 pthread_t pthread_self(void);
+
+
+
+
+
 
 
 
@@ -9363,9 +9373,6 @@ void main()
  __SMACK_code("assume @ >= @;", whoop_int, 0);
 
 
- _whoop_init();
-
-
  pthread_t pthread_t_write_nvram;
  pthread_t pthread_t_read_nvram;
  pthread_t pthread_t_nvram_unlocked_ioctl;
@@ -9385,8 +9392,5 @@ void main()
  pthread_join(pthread_t_nvram_unlocked_ioctl, ((void *)0));
  pthread_join(pthread_t_nvram_llseek, ((void *)0));
  pthread_join(pthread_t_nvram_cleanup, ((void *)0));
-
-
- _whoop_exit();
 
 }
