@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
@@ -25,12 +26,14 @@ root = t.getroot()
 for driver in root.iter('driver'):
     dfile = driver.attrib["name"]
     #If driver group is not in the completed list, skip driver
-    if(dfile.split('/')[1] not in completed):
+    if(dfile.split('/')[1] not in completed or "generic_nvram" not in dfile):
         continue
     for epp in driver.iter("pair"):
         ep1 = epp.attrib['ep1']
         ep2 = epp.attrib['ep2']
-        bug = epp.attrib['bug'] in ['true', 'True']
-        
-        print(dfile + '\t' + str(bug) + '\t' + ep1 + '\t' + ep2)
+        bug = "true" if epp.attrib['bug'] in ['true', 'True'] else "false"
 
+        cmd = [myc, dfile, "-ep1=" + ep1, "-ep2=" + ep2,
+               "-hasBug=" + bug, "--", "-w", "-I", "./Model/"]
+        
+        subprocess.call(cmd)
