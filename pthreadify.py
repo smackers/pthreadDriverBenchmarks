@@ -29,6 +29,7 @@ for driver in root.iter('driver'):
     if(dfile.split('/')[1] not in completed or "generic_nvram" not in dfile):
         continue
     for epp in driver.iter("pair"):
+        # Call myChauffeur for current ep pair
         ep1 = epp.attrib['ep1']
         ep2 = epp.attrib['ep2']
         bug = "true" if epp.attrib['bug'] in ['true', 'True'] else "false"
@@ -37,3 +38,16 @@ for driver in root.iter('driver'):
                "-hasBug=" + bug, "--", "-w", "-I", "./Model/"]
         
         subprocess.call(cmd)
+
+        # Generate resultant file name, and do preprocessing
+        group = dfile.split('/')[1]
+        dName = dfile.split('/')[2]
+        folder = dfile[:dfile.rfind('/')]
+        rewrittenDriverBase = folder + '/' + group + "_" + dName + "_"
+        rewrittenDriverBase += ep1 + "_" + ep2 + "_" + bug
+        print(os.path.exists(rewrittenDriverBase + ".c"))
+
+        cmd = ["clang", "-E", "-P", rewrittenDriverBase + ".c", 
+               "-I", "./Model/"]
+        with file(rewrittenDriverBase + ".i", 'w') as outfile:
+            subprocess.call(cmd, stdout=outfile)
