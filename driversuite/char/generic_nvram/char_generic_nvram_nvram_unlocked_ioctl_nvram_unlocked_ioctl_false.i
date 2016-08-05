@@ -9331,7 +9331,12 @@ void *whoop_wrapper_read_nvram(void* args)
  read_nvram(whoop_file_1, whoop_buf, whoop_int, whoop_loff_t);
 }
 
-void *whoop_wrapper_nvram_unlocked_ioctl(void* args)
+void *whoop_wrapper_nvram_unlocked_ioctl_1(void* args)
+{
+ nvram_unlocked_ioctl(whoop_file_2, whoop_int, whoop_int);
+}
+
+void *whoop_wrapper_nvram_unlocked_ioctl_2(void* args)
 {
  nvram_unlocked_ioctl(whoop_file_2, whoop_int, whoop_int);
 }
@@ -9372,24 +9377,15 @@ void main()
  __SMACK_code("assume @ >= @;", whoop_int, 0);
 
 
- pthread_t pthread_t_write_nvram;
- pthread_t pthread_t_read_nvram;
- pthread_t pthread_t_nvram_unlocked_ioctl;
- pthread_t pthread_t_nvram_llseek;
- pthread_t pthread_t_nvram_cleanup;
+ pthread_t pthread_t_nvram_unlocked_ioctl_1;
+ pthread_t pthread_t_nvram_unlocked_ioctl_2;
 
 
- pthread_create(&pthread_t_write_nvram, ((void *)0), whoop_wrapper_write_nvram, ((void *)0));
- pthread_create(&pthread_t_read_nvram, ((void *)0), whoop_wrapper_read_nvram, ((void *)0));
- pthread_create(&pthread_t_nvram_unlocked_ioctl, ((void *)0), whoop_wrapper_nvram_unlocked_ioctl, ((void *)0));
- pthread_create(&pthread_t_nvram_llseek, ((void *)0), whoop_wrapper_nvram_llseek, ((void *)0));
- pthread_create(&pthread_t_nvram_cleanup, ((void *)0), whoop_wrapper_nvram_cleanup, ((void *)0));
+ pthread_create(&pthread_t_nvram_unlocked_ioctl_1, ((void *)0), whoop_wrapper_nvram_unlocked_ioctl_1, ((void *)0));
+ pthread_create(&pthread_t_nvram_unlocked_ioctl_2, ((void *)0), whoop_wrapper_nvram_unlocked_ioctl_2, ((void *)0));
 
 
- pthread_join(pthread_t_write_nvram, ((void *)0));
- pthread_join(pthread_t_read_nvram, ((void *)0));
- pthread_join(pthread_t_nvram_unlocked_ioctl, ((void *)0));
- pthread_join(pthread_t_nvram_llseek, ((void *)0));
- pthread_join(pthread_t_nvram_cleanup, ((void *)0));
+ pthread_join(pthread_t_nvram_unlocked_ioctl_1, ((void *)0));
+ pthread_join(pthread_t_nvram_unlocked_ioctl_2, ((void *)0));
 
 }

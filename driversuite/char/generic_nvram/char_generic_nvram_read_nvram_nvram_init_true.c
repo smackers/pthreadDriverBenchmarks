@@ -255,24 +255,12 @@ void main()
 	__SMACK_code("assume @ >= @;", whoop_int, 0);
 
 	// Declare pthread_t's
-	pthread_t pthread_t_write_nvram;
 	pthread_t pthread_t_read_nvram;
-	pthread_t pthread_t_nvram_unlocked_ioctl;
-	pthread_t pthread_t_nvram_llseek;
-	pthread_t pthread_t_nvram_cleanup;
 
 	// Create pthread threads
-	pthread_create(&pthread_t_write_nvram, NULL, whoop_wrapper_write_nvram, NULL);
 	pthread_create(&pthread_t_read_nvram, NULL, whoop_wrapper_read_nvram, NULL);
-	pthread_create(&pthread_t_nvram_unlocked_ioctl, NULL, whoop_wrapper_nvram_unlocked_ioctl, NULL);
-	pthread_create(&pthread_t_nvram_llseek, NULL, whoop_wrapper_nvram_llseek, NULL);
-	pthread_create(&pthread_t_nvram_cleanup, NULL, whoop_wrapper_nvram_cleanup, NULL);
 
 	// Wait for threads to finish
-	pthread_join(pthread_t_write_nvram, NULL);
 	pthread_join(pthread_t_read_nvram, NULL);
-	pthread_join(pthread_t_nvram_unlocked_ioctl, NULL);
-	pthread_join(pthread_t_nvram_llseek, NULL);
-	pthread_join(pthread_t_nvram_cleanup, NULL);
 
 }
