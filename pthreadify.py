@@ -11,10 +11,11 @@ import xml.etree.ElementTree as ET
 
 #Parse args
 args = sys.argv
-usg = "Need 2 positional args, (1) entry point xml file, (2) myChauffeur executable"
-assert len(args) == 3, usg
+usg = 'Need 2 positional args, (1) entry point xml file, (2) myChauffeur executable.  If 3rd positional arg is provided, it selects a single driver as target (use driver folder name, without category folder, e.g., "generic_nvram")'
+assert len(args) == 4 or len(args) == 3, usg
 eps = args[1]
 myc = args[2]
+targetDriver = args[3] if len(args)==4 else ""
 assert os.path.exists(eps), "entry point file not found"
 assert os.path.exists(myc), "myChauffeur executable not found"
 
@@ -23,11 +24,15 @@ assert os.path.exists(myc), "myChauffeur executable not found"
 completed = ["char"]
 t = ET.parse(eps)
 root = t.getroot()
+foundDriver = False
 for driver in root.iter('driver'):
     dfile = driver.attrib["name"]
     #If driver group is not in the completed list, skip driver
-    if(dfile.split('/')[1] not in completed or "generic_nvram" not in dfile):
+    if(dfile.split('/')[1] not in completed):
         continue
+    if(targetDriver not in dfile):
+       continue
+    foundDriver = True
     for epp in driver.iter("pair"):
         # Call myChauffeur for current ep pair
         ep1 = epp.attrib['ep1']
@@ -51,3 +56,7 @@ for driver in root.iter('driver'):
                "-I", "./Model/"]
         with file(rewrittenDriverBase + ".i", 'w') as outfile:
             subprocess.call(cmd, stdout=outfile)
+
+if(not foundDriver):
+    print("No driver found")
+    
