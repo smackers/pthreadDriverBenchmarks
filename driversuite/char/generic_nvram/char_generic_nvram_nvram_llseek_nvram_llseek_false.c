@@ -236,7 +236,7 @@ void *whoop_wrapper_nvram_cleanup(void* args)
 
 void main()
 {
-	// Instantiate values required by entry poitns
+	// Instantiate values required by entry points
 	whoop_inode_0 = (struct inode *) malloc(sizeof(struct inode));
 	whoop_file_0 = (struct file *) malloc(sizeof(struct file));
 	whoop_inode_1 = (struct inode *) malloc(sizeof(struct inode));
@@ -256,8 +256,11 @@ void main()
 	whoop_poll_table = (poll_table *) malloc(sizeof(poll_table));
 
 	whoop_loff_t = (loff_t *) malloc(sizeof(loff_t));
-	whoop_int = __SMACK_nondet();
-	__SMACK_code("assume @ >= @;", whoop_int, 0);
+	whoop_int = __VERIFIER_nondet_int();
+	__VERIFIER_assume(whoop_int >= 0);
+
+	// Call module_init function
+	int _whoop_init_result = _whoop_init();
 
 	// Declare pthread_t's
 	pthread_t pthread_t_nvram_llseek_1;
