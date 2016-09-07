@@ -5,6 +5,13 @@
 
 
 
+
+
+
+
+
+
+
 typedef int pthread_t;
 
 typedef int pthread_attr_t;
@@ -15,14 +22,6 @@ int pthread_create(pthread_t* thread,const pthread_attr_t* attr,
 int pthread_join(pthread_t thread, void **value_ptr);
 
 pthread_t pthread_self(void);
-
-
-
-
-
-
-
-
 
 
 
@@ -376,7 +375,7 @@ struct vfs_cap_data {
   __le32 inheritable;
  } data[2];
 };
-void (* _whoop_init)(void);
+int (* _whoop_init)(void);
 void (* _whoop_exit)(void);
 
 
@@ -9294,96 +9293,6 @@ void nvram_cleanup(void)
         misc_deregister( &nvram_dev );
 }
 
-void (* _whoop_init)(void) = nvram_init;;
+int (* _whoop_init)(void) = nvram_init;;
 void (* _whoop_exit)(void) = nvram_cleanup;;
 void;
-
-
-struct inode *whoop_inode_0;
-struct file *whoop_file_0;
-struct inode *whoop_inode_1;
-struct file *whoop_file_1;
-struct inode *whoop_inode_2;
-struct file *whoop_file_2;
-struct inode *whoop_inode_3;
-struct file *whoop_file_3;
-struct inode *whoop_inode_4;
-struct file *whoop_file_4;
-struct pci_dev *whoop_pci_dev;
-const char *whoop_buf;
-struct platform_device *whoop_platform_device;
-struct vm_area_struct *whoop_vm_area_struct;
-struct cx_dev *whoop_cx_dev;
-
-poll_table *whoop_poll_table;
-
-loff_t *whoop_loff_t;
-int whoop_int;
-
-
-void *whoop_wrapper_write_nvram(void* args)
-{
- write_nvram(whoop_file_0, whoop_buf, whoop_int, whoop_loff_t);
-}
-
-void *whoop_wrapper_read_nvram(void* args)
-{
- read_nvram(whoop_file_1, whoop_buf, whoop_int, whoop_loff_t);
-}
-
-void *whoop_wrapper_nvram_unlocked_ioctl(void* args)
-{
- nvram_unlocked_ioctl(whoop_file_2, whoop_int, whoop_int);
-}
-
-void *whoop_wrapper_nvram_llseek(void* args)
-{
- nvram_llseek(whoop_file_3, &whoop_loff_t, whoop_int);
-}
-
-void *whoop_wrapper_nvram_cleanup(void* args)
-{
- nvram_cleanup();
-}
-
-void main()
-{
-
- whoop_inode_0 = (struct inode *) malloc(sizeof(struct inode));
- whoop_file_0 = (struct file *) malloc(sizeof(struct file));
- whoop_inode_1 = (struct inode *) malloc(sizeof(struct inode));
- whoop_file_1 = (struct file *) malloc(sizeof(struct file));
- whoop_inode_2 = (struct inode *) malloc(sizeof(struct inode));
- whoop_file_2 = (struct file *) malloc(sizeof(struct file));
- whoop_inode_3 = (struct inode *) malloc(sizeof(struct inode));
- whoop_file_3 = (struct file *) malloc(sizeof(struct file));
- whoop_inode_4 = (struct inode *) malloc(sizeof(struct inode));
- whoop_file_4 = (struct file *) malloc(sizeof(struct file));
- whoop_pci_dev = (struct pci_dev *) malloc(sizeof(struct pci_dev));
- whoop_buf = (char *) malloc(sizeof(char));
- whoop_platform_device = (struct platform_device *) malloc(sizeof(struct platform_device));
- whoop_vm_area_struct = (struct vm_area_struct *) malloc(sizeof(struct vm_area_struct));
- whoop_cx_dev = (struct cx_dev *) malloc(sizeof(struct cx_dev));
-
- whoop_poll_table = (poll_table *) malloc(sizeof(poll_table));
-
- whoop_loff_t = (loff_t *) malloc(sizeof(loff_t));
- whoop_int = __VERIFIER_nondet_int();
- __VERIFIER_assume(whoop_int >= 0);
-
-
- int _whoop_init_result = _whoop_init();
-
-
- pthread_t pthread_t_read_nvram;
- pthread_t pthread_t_nvram_llseek;
-
-
- pthread_create(&pthread_t_read_nvram, ((void *)0), whoop_wrapper_read_nvram, ((void *)0));
- pthread_create(&pthread_t_nvram_llseek, ((void *)0), whoop_wrapper_nvram_llseek, ((void *)0));
-
-
- pthread_join(pthread_t_read_nvram, ((void *)0));
- pthread_join(pthread_t_nvram_llseek, ((void *)0));
-
-}
