@@ -1,3 +1,4 @@
+#include <pthread.h>
 /*
  * Generic /dev/nvram driver for architectures providing some
  * "generic" hooks, that is :
@@ -179,3 +180,93 @@ void __exit nvram_cleanup(void)
 module_init(nvram_init);
 module_exit(nvram_cleanup);
 MODULE_LICENSE("GPL");
+
+// Declare values needed by entry point wrappers
+struct inode *whoop_inode_0;
+struct file *whoop_file_0;
+struct inode *whoop_inode_1;
+struct file *whoop_file_1;
+struct inode *whoop_inode_2;
+struct file *whoop_file_2;
+struct inode *whoop_inode_3;
+struct file *whoop_file_3;
+struct inode *whoop_inode_4;
+struct file *whoop_file_4;
+struct pci_dev *whoop_pci_dev;
+const char *whoop_buf;
+struct platform_device *whoop_platform_device;
+struct vm_area_struct *whoop_vm_area_struct;
+struct cx_dev *whoop_cx_dev;
+
+poll_table *whoop_poll_table;
+
+loff_t *whoop_loff_t;
+int whoop_int;
+
+// Pthread wrappers for entry points
+void *whoop_wrapper_write_nvram(void* args)
+{
+	write_nvram(whoop_file_0, whoop_buf, whoop_int, whoop_loff_t);
+}
+
+void *whoop_wrapper_read_nvram(void* args)
+{
+	read_nvram(whoop_file_1, whoop_buf, whoop_int, whoop_loff_t);
+}
+
+void *whoop_wrapper_nvram_unlocked_ioctl(void* args)
+{
+	nvram_unlocked_ioctl(whoop_file_2, whoop_int, whoop_int);
+}
+
+void *whoop_wrapper_nvram_llseek(void* args)
+{
+	nvram_llseek(whoop_file_3, &whoop_loff_t, whoop_int);
+}
+
+void *whoop_wrapper_nvram_cleanup(void* args)
+{
+	nvram_cleanup();
+}
+
+void main()
+{
+	// Instantiate values required by entry points
+	whoop_inode_0 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_0 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_1 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_1 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_2 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_2 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_3 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_3 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_4 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_4 = (struct file *) malloc(sizeof(struct file));
+	whoop_pci_dev = (struct pci_dev *) malloc(sizeof(struct pci_dev));
+	whoop_buf = (char *) malloc(sizeof(char));
+	whoop_platform_device = (struct platform_device *) malloc(sizeof(struct platform_device));
+	whoop_vm_area_struct = (struct vm_area_struct *) malloc(sizeof(struct vm_area_struct));
+	whoop_cx_dev = (struct cx_dev *) malloc(sizeof(struct cx_dev));
+
+	whoop_poll_table = (poll_table *) malloc(sizeof(poll_table));
+
+	whoop_loff_t = (loff_t *) malloc(sizeof(loff_t));
+	whoop_int = __VERIFIER_nondet_int();
+	__VERIFIER_assume(whoop_int >= 0);
+
+	// Call module_init function
+	int _whoop_init_result = _whoop_init();
+
+	// Declare pthread_t's
+	pthread_t pthread_t_write_nvram;
+	pthread_t pthread_t_nvram_llseek;
+
+	// Create pthread threads
+	pthread_create(&pthread_t_write_nvram, NULL, whoop_wrapper_write_nvram, NULL);
+	pthread_create(&pthread_t_nvram_llseek, NULL, whoop_wrapper_nvram_llseek, NULL);
+
+	// Wait for threads to finish
+	pthread_join(pthread_t_write_nvram, NULL);
+	pthread_join(pthread_t_nvram_llseek, NULL);
+
+}
