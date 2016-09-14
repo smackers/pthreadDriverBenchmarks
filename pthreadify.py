@@ -37,6 +37,8 @@ for driver in root.iter('driver'):
         # Call myChauffeur for current ep pair
         ep1 = epp.attrib['ep1']
         ep2 = epp.attrib['ep2']
+        if ep1 == ep2:
+            continue
         noBug = "false" if epp.attrib['bug'] in ['true', 'True'] else "true"
 
         cmd = [myc, dfile, "-ep1=" + ep1, "-ep2=" + ep2,
