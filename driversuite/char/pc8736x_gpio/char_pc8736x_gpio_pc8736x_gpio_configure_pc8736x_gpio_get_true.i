@@ -9453,15 +9453,10 @@ static void pc8736x_init_shadow(void)
  int port;
 
 
- for (port = 0; port < 4; ++port) {
+ for (port = 0; port < 4; ++port)
   pc8736x_gpio_shadow[port]
       = inb_p(pc8736x_gpio_base + port_offset[port]
        + 0);
-                __VERIFIER_assert(pc8736x_gpio_shadow[port]
-                                  == inb_p(pc8736x_gpio_base +
-                                           port_offset[port] +
-                                           0));
-        }
 
 }
 
@@ -9510,8 +9505,6 @@ int pc8736x_gpio_init(void)
 
  pc8736x_gpio_base = (superio_inb(0x60) << 8
         | superio_inb(0x61));
-        __VERIFIER_assert(pc8736x_gpio_base == (superio_inb(0x60) << 8
-                                                | superio_inb(0x61)));
 
  if (!request_region(pc8736x_gpio_base, 16, "pc8736x_gpio")) {
   rc = -19;

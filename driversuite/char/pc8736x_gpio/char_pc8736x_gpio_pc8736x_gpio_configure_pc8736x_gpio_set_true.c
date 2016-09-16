@@ -248,15 +248,10 @@ static void __init pc8736x_init_shadow(void)
 	int port;
 
 	/* read the current values driven on the GPIO signals */
-	for (port = 0; port < 4; ++port) {
+	for (port = 0; port < 4; ++port)
 		pc8736x_gpio_shadow[port]
 		    = inb_p(pc8736x_gpio_base + port_offset[port]
 			    + PORT_OUT);
-                __VERIFIER_assert(pc8736x_gpio_shadow[port]
-                                  == inb_p(pc8736x_gpio_base + 
-                                           port_offset[port] +
-                                           PORT_OUT));
-        }
 
 }
 
@@ -305,8 +300,6 @@ int __init pc8736x_gpio_init(void)
 	/* read the GPIO unit base addr that chip responds to */
 	pc8736x_gpio_base = (superio_inb(SIO_BASE_HADDR) << 8
 			     | superio_inb(SIO_BASE_LADDR));
-        __VERIFIER_assert(pc8736x_gpio_base == (superio_inb(SIO_BASE_HADDR) << 8
-                                                | superio_inb(SIO_BASE_LADDR)));
 
 	if (!request_region(pc8736x_gpio_base, PC8736X_GPIO_RANGE, DEVNAME)) {
 		rc = -ENODEV;
