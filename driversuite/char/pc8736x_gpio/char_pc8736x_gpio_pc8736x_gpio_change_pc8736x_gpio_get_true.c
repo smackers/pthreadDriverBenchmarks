@@ -1,3 +1,4 @@
+#include <pthread.h>
 /* linux/drivers/char/pc8736x_gpio.c
 
    National Semiconductor PC8736x GPIO driver.  Allows a user space
@@ -145,13 +146,13 @@ static inline u32 pc8736x_gpio_configure_fn(unsigned index, u32 mask, u32 bits,
 	return config;
 }
 
-static u32 pc8736x_gpio_configure(unsigned index, u32 mask, u32 bits)
+u32 pc8736x_gpio_configure(unsigned index, u32 mask, u32 bits)
 {
 	return pc8736x_gpio_configure_fn(index, mask, bits,
 					 SIO_GPIO_PIN_CONFIG);
 }
 
-static int pc8736x_gpio_get(unsigned minor)
+int pc8736x_gpio_get(unsigned minor)
 {
 	int port, bit, val;
 
@@ -168,7 +169,7 @@ static int pc8736x_gpio_get(unsigned minor)
 	return val;
 }
 
-static void pc8736x_gpio_set(unsigned minor, int val)
+void pc8736x_gpio_set(unsigned minor, int val)
 {
 	int port, bit, curval;
 
@@ -196,7 +197,7 @@ static void pc8736x_gpio_set(unsigned minor, int val)
 	__VERIFIER_assert(pc8736x_gpio_shadow[port] == val);
 }
 
-static int pc8736x_gpio_current(unsigned minor)
+int pc8736x_gpio_current(unsigned minor)
 {
 	int port, bit;
 	minor &= 0x1f;
@@ -205,7 +206,7 @@ static int pc8736x_gpio_current(unsigned minor)
 	return ((pc8736x_gpio_shadow[port] >> bit) & 0x01);
 }
 
-static void pc8736x_gpio_change(unsigned index)
+void pc8736x_gpio_change(unsigned index)
 {
 	pc8736x_gpio_set(index, !pc8736x_gpio_current(index));
 }
@@ -220,7 +221,7 @@ static struct nsc_gpio_ops pc8736x_gpio_ops = {
 	.gpio_current	= pc8736x_gpio_current
 };
 
-static int pc8736x_gpio_open(struct inode *inode, struct file *file)
+int pc8736x_gpio_open(struct inode *inode, struct file *file)
 {
 	unsigned m = iminor(inode);
 	file->private_data = &pc8736x_gpio_ops;
@@ -261,7 +262,7 @@ static void __init pc8736x_init_shadow(void)
 
 static struct cdev pc8736x_gpio_cdev;
 
-static int __init pc8736x_gpio_init(void)
+int __init pc8736x_gpio_init(void)
 {
 	int rc;
 	dev_t devid;
@@ -350,7 +351,7 @@ undo_platform_dev_alloc:
 	return rc;
 }
 
-static void __exit pc8736x_gpio_cleanup(void)
+void __exit pc8736x_gpio_cleanup(void)
 {
 	dev_dbg(&pdev->dev, "cleanup\n");
 
@@ -363,3 +364,111 @@ static void __exit pc8736x_gpio_cleanup(void)
 
 module_init(pc8736x_gpio_init);
 module_exit(pc8736x_gpio_cleanup);
+
+// Declare values needed by entry point wrappers
+struct inode *whoop_inode_0;
+struct file *whoop_file_0;
+struct inode *whoop_inode_1;
+struct file *whoop_file_1;
+struct inode *whoop_inode_2;
+struct file *whoop_file_2;
+struct inode *whoop_inode_3;
+struct file *whoop_file_3;
+struct inode *whoop_inode_4;
+struct file *whoop_file_4;
+struct inode *whoop_inode_5;
+struct file *whoop_file_5;
+struct inode *whoop_inode_6;
+struct file *whoop_file_6;
+struct pci_dev *whoop_pci_dev;
+const char *whoop_buf;
+struct platform_device *whoop_platform_device;
+struct vm_area_struct *whoop_vm_area_struct;
+struct cx_dev *whoop_cx_dev;
+
+poll_table *whoop_poll_table;
+
+loff_t *whoop_loff_t;
+int whoop_int;
+
+// Pthread wrappers for entry points
+void *whoop_wrapper_pc8736x_gpio_set(void* args)
+{
+	pc8736x_gpio_set(whoop_int, whoop_int);
+}
+
+void *whoop_wrapper_pc8736x_gpio_open(void* args)
+{
+	pc8736x_gpio_open(whoop_inode_1, whoop_file_1);
+}
+
+void *whoop_wrapper_pc8736x_gpio_get(void* args)
+{
+	pc8736x_gpio_get(whoop_int);
+}
+
+void *whoop_wrapper_pc8736x_gpio_current(void* args)
+{
+	pc8736x_gpio_current(whoop_int);
+}
+
+void *whoop_wrapper_pc8736x_gpio_configure(void* args)
+{
+	pc8736x_gpio_configure(whoop_int, whoop_int, whoop_int);
+}
+
+void *whoop_wrapper_pc8736x_gpio_cleanup(void* args)
+{
+	pc8736x_gpio_cleanup();
+}
+
+void *whoop_wrapper_pc8736x_gpio_change(void* args)
+{
+	pc8736x_gpio_change(whoop_int);
+}
+
+void main()
+{
+	// Instantiate values required by entry points
+	whoop_inode_0 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_0 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_1 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_1 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_2 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_2 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_3 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_3 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_4 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_4 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_5 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_5 = (struct file *) malloc(sizeof(struct file));
+	whoop_inode_6 = (struct inode *) malloc(sizeof(struct inode));
+	whoop_file_6 = (struct file *) malloc(sizeof(struct file));
+	whoop_pci_dev = (struct pci_dev *) malloc(sizeof(struct pci_dev));
+	whoop_buf = (char *) malloc(sizeof(char));
+	whoop_platform_device = (struct platform_device *) malloc(sizeof(struct platform_device));
+	whoop_vm_area_struct = (struct vm_area_struct *) malloc(sizeof(struct vm_area_struct));
+	whoop_cx_dev = (struct cx_dev *) malloc(sizeof(struct cx_dev));
+
+	whoop_poll_table = (poll_table *) malloc(sizeof(poll_table));
+
+	whoop_loff_t = (loff_t *) malloc(sizeof(loff_t));
+	whoop_int = __VERIFIER_nondet_int();
+	__VERIFIER_assume(whoop_int >= 0);
+
+	// Call module_init function
+	int _whoop_init_result = _whoop_init();
+
+	// Declare pthread_t's
+	pthread_t pthread_t_pc8736x_gpio_get;
+	pthread_t pthread_t_pc8736x_gpio_change;
+
+	// Create pthread threads
+	pthread_create(&pthread_t_pc8736x_gpio_get, NULL, whoop_wrapper_pc8736x_gpio_get, NULL);
+	pthread_create(&pthread_t_pc8736x_gpio_change, NULL, whoop_wrapper_pc8736x_gpio_change, NULL);
+
+	// Wait for threads to finish
+	pthread_join(pthread_t_pc8736x_gpio_get, NULL);
+	pthread_join(pthread_t_pc8736x_gpio_change, NULL);
+
+}

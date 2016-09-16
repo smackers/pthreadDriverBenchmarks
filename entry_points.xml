@@ -13,33 +13,21 @@
     <pair ep1="write_nvram" ep2="write_nvram" bug="true" />
   </driver>
   <driver name="driversuite/char/pc8736x_gpio/driver.c">
-    <pair ep1="pc8736x_gpio_open" ep2="pc8736x_gpio_open" bug="false" />
     <pair ep1="pc8736x_gpio_open" ep2="pc8736x_gpio_change" bug="false" />
     <pair ep1="pc8736x_gpio_open" ep2="pc8736x_gpio_configure" bug="false" />
     <pair ep1="pc8736x_gpio_open" ep2="pc8736x_gpio_current" bug="false" />
     <pair ep1="pc8736x_gpio_open" ep2="pc8736x_gpio_get" bug="false" />
     <pair ep1="pc8736x_gpio_open" ep2="pc8736x_gpio_set" bug="false" />
-    <pair ep1="pc8736x_gpio_open" ep2="pc8736x_gpio_init" bug="false" />
-    <pair ep1="pc8736x_gpio_change" ep2="pc8736x_gpio_change" bug="true" />
     <pair ep1="pc8736x_gpio_change" ep2="pc8736x_gpio_configure" bug="false" />
     <pair ep1="pc8736x_gpio_change" ep2="pc8736x_gpio_current" bug="true" />
     <pair ep1="pc8736x_gpio_change" ep2="pc8736x_gpio_get" bug="false" />
     <pair ep1="pc8736x_gpio_change" ep2="pc8736x_gpio_set" bug="true" />
-    <pair ep1="pc8736x_gpio_change" ep2="pc8736x_gpio_init" bug="false" />
-    <pair ep1="pc8736x_gpio_configure" ep2="pc8736x_gpio_configure" bug="false" />
     <pair ep1="pc8736x_gpio_configure" ep2="pc8736x_gpio_current" bug="false" />
     <pair ep1="pc8736x_gpio_configure" ep2="pc8736x_gpio_get" bug="false" />
     <pair ep1="pc8736x_gpio_configure" ep2="pc8736x_gpio_set" bug="false" />
-    <pair ep1="pc8736x_gpio_configure" ep2="pc8736x_gpio_init" bug="false" />
-    <pair ep1="pc8736x_gpio_current" ep2="pc8736x_gpio_current" bug="false" />
     <pair ep1="pc8736x_gpio_current" ep2="pc8736x_gpio_get" bug="false" />
     <pair ep1="pc8736x_gpio_current" ep2="pc8736x_gpio_set" bug="false" />
-    <pair ep1="pc8736x_gpio_current" ep2="pc8736x_gpio_init" bug="false" />
-    <pair ep1="pc8736x_gpio_get" ep2="pc8736x_gpio_get" bug="false" />
     <pair ep1="pc8736x_gpio_get" ep2="pc8736x_gpio_set" bug="false" />
-    <pair ep1="pc8736x_gpio_get" ep2="pc8736x_gpio_init" bug="false" />
-    <pair ep1="pc8736x_gpio_set" ep2="pc8736x_gpio_set" bug="true" />
-    <pair ep1="pc8736x_gpio_set" ep2="pc8736x_gpio_init" bug="false" />
   </driver>
   <driver name="driversuite/watchdog/machzwd/driver.c">
     <pair ep1="zf_open" ep2="zf_open" bug="false" />
