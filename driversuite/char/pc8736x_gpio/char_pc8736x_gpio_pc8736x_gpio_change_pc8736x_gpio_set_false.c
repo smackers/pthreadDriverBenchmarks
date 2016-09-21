@@ -203,7 +203,9 @@ int pc8736x_gpio_current(unsigned minor)
 	minor &= 0x1f;
 	port = minor >> 3;
 	bit = minor & 7;
-	return ((pc8736x_gpio_shadow[port] >> bit) & 0x01);
+        u8 tmp = pc8736x_gpio_shadow[port];
+        __VERIFIER_assert(tmp == pc8736x_gpio_shadow[port]);
+	return ((tmp >> bit) & 0x01);
 }
 
 void pc8736x_gpio_change(unsigned index)
