@@ -26,7 +26,7 @@
     <pair ep1="pc8736x_gpio_configure" ep2="pc8736x_gpio_get" bug="false" />
     <pair ep1="pc8736x_gpio_configure" ep2="pc8736x_gpio_set" bug="false" />
     <pair ep1="pc8736x_gpio_current" ep2="pc8736x_gpio_get" bug="false" />
-    <pair ep1="pc8736x_gpio_current" ep2="pc8736x_gpio_set" bug="false" />
+    <pair ep1="pc8736x_gpio_current" ep2="pc8736x_gpio_set" bug="true" />
     <pair ep1="pc8736x_gpio_get" ep2="pc8736x_gpio_set" bug="false" />
   </driver>
   <driver name="driversuite/watchdog/machzwd/driver.c">
