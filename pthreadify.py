@@ -51,7 +51,7 @@ for driver in root.iter('driver'):
         dName = dfile.split('/')[2]
         folder = dfile[:dfile.rfind('/')]
         rewrittenDriverBase = folder + '/' + group + "_" + dName + "_"
-        rewrittenDriverBase += ep1 + "_" + ep2 + "_" + noBug
+        rewrittenDriverBase += ep1 + "_" + ep2 + "_" + noBug + "-unreach-call"
         print(os.path.exists(rewrittenDriverBase + ".c"))
 
         cmd = ["clang", "-E", "-P", rewrittenDriverBase + ".c", 
