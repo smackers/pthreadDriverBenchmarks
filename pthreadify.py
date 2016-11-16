@@ -55,7 +55,7 @@ for driver in root.iter('driver'):
         print(os.path.exists(rewrittenDriverBase + ".c"))
 
         cmd = ["clang", "-E", "-P", rewrittenDriverBase + ".c", 
-               "-I", "./Model/"]
+               "-I", "./Model/", "-m32", ]
         with file(rewrittenDriverBase + ".i", 'w') as outfile:
             subprocess.call(cmd, stdout=outfile)
 
